@@ -1,16 +1,15 @@
 import { useState } from "react";
-import Navbar from "./Components/Navbar";
-import Hero from "./Components/Hero";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 import About from "./components/About";
-// import Skills from "./Components/Skills";
-import Skills2 from "./Components/Skills2";
-import Projects from "./Components/Projects";
-import Experience from "./Components/Experience";
-import Contact from "./Components/Contact";
-import Footer from "./Components/Footer";
-import CustomCursor from "./Components/CustomCursor";
-import PageLoader from "./Components/PageLoader";
-import ScrollProgress from "./Components/ScrollProgress";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Experience from "./components/Experience";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import CustomCursor from "./components/CustomCursor";
+import PageLoader from "./components/PageLoader";
+import ScrollProgress from "./components/ScrollProgress";
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -26,12 +25,8 @@ export default function App() {
 
         <main>
           <Hero darkMode={darkMode} />
-
           <About darkMode={darkMode} />
-
-          {/* <Skills darkMode={darkMode} /> */}
-          <Skills2 darkMode={darkMode} />
-
+          <Skills darkMode={darkMode} />
           <Projects darkMode={darkMode} />
           <Experience darkMode={darkMode} />
           <Contact darkMode={darkMode} />
