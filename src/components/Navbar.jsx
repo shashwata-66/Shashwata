@@ -18,7 +18,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const [isMobile, setIsMobile]     = useState(false);
 
   useEffect(() => {
-    // 1024px covers phones + all iPads (Mini 768, Air 820, Pro 1024)
     const check = () => setIsMobile(window.innerWidth < 1280);
     check();
     window.addEventListener("resize", check);
@@ -56,9 +55,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             : "bg-transparent"
         }`}
       >
-        <div
-          className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between"
-          style={{ paddingRight: isMobile ? "3.5rem" : undefined }}
+        {/* px-6 on desktop, on mobile add pr-5 to push controls right */}
+        <div className="max-w-6xl mx-auto py-4 flex items-center justify-between"
+          style={{ paddingLeft: "1.5rem", paddingRight: isMobile ? "1.25rem" : "1.5rem" }}
         >
 
           {/* Logo */}
@@ -76,10 +75,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 className="absolute inset-0"
                 style={{ background: "conic-gradient(from 0deg, #7c3aed, #a78bfa, #7c3aed)" }}
               />
-              <div
-                className="absolute inset-[2px] rounded-[10px] flex items-center justify-center"
-                style={{ background: darkMode ? "#0a0a0f" : "#ffffff" }}
-              >
+              <div className="absolute inset-[2px] rounded-[10px] flex items-center justify-center"
+                style={{ background: darkMode ? "#0a0a0f" : "#ffffff" }}>
                 <span className="text-sm font-black tracking-tight bg-gradient-to-br from-purple-400 to-violet-300 bg-clip-text text-transparent select-none">
                   SB
                 </span>
@@ -87,14 +84,12 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             </div>
           </motion.a>
 
-          {/* Desktop Nav Links — only on screens 1024px and above */}
+          {/* Desktop Nav Links */}
           {!isMobile && (
             <ul className="flex items-center gap-1">
               {navLinks.map((link, i) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                <motion.li key={link.href}
+                  initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + i * 0.07, duration: 0.4 }}
                 >
                   <button
@@ -103,15 +98,12 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                       darkMode ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"
                     } ${activeLink === link.href ? (darkMode ? "text-white" : "text-gray-900") : ""}`}
                   >
-                    <span
-                      className={`absolute inset-0 rounded-lg transition-opacity duration-200 ${
-                        activeLink === link.href ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                      } ${darkMode ? "bg-purple-500/10" : "bg-purple-50"}`}
-                    />
+                    <span className={`absolute inset-0 rounded-lg transition-opacity duration-200 ${
+                      activeLink === link.href ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                    } ${darkMode ? "bg-purple-500/10" : "bg-purple-50"}`} />
                     <span className="relative z-10">{link.label}</span>
                     {activeLink === link.href && (
-                      <motion.span
-                        layoutId="activeNavUnderline"
+                      <motion.span layoutId="activeNavUnderline"
                         className="absolute bottom-0.5 left-3 right-3 h-[2px] rounded-full"
                         style={{ background: "linear-gradient(90deg, #7c3aed, #c084fc)" }}
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
@@ -126,10 +118,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
           {/* Right controls */}
           <div className="flex items-center gap-2">
 
-            {/* Dark/Light Toggle — always visible */}
+            {/* Dark/Light Toggle */}
             <motion.button
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.93 }}
+              whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.93 }}
               onClick={toggleDarkMode}
               className={`relative w-14 h-7 rounded-full transition-colors duration-300 flex items-center ${
                 darkMode ? "bg-purple-600/30 border border-purple-500/30" : "bg-gray-200 border border-gray-300"
@@ -143,15 +134,11 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   darkMode ? "bg-purple-400" : "bg-white"
                 }`}
               >
-                {darkMode ? (
-                  <FiMoon size={11} className="text-purple-900" />
-                ) : (
-                  <FiSun size={11} className="text-yellow-500" />
-                )}
+                {darkMode ? <FiMoon size={11} className="text-purple-900" /> : <FiSun size={11} className="text-yellow-500" />}
               </motion.div>
             </motion.button>
 
-            {/* Hamburger — mobile + tablet only */}
+            {/* Hamburger — mobile/tablet only */}
             {isMobile && (
               <motion.button
                 whileTap={{ scale: 0.9 }}
@@ -163,23 +150,11 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               >
                 <AnimatePresence mode="wait">
                   {menuOpen ? (
-                    <motion.span
-                      key="close"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                    <motion.span key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
                       <FiX size={20} />
                     </motion.span>
                   ) : (
-                    <motion.span
-                      key="open"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                    <motion.span key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
                       <FiMenu size={20} />
                     </motion.span>
                   )}
@@ -191,7 +166,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
         </div>
       </motion.nav>
 
-      {/* Mobile + Tablet Dropdown Menu */}
+      {/* Mobile Dropdown Menu */}
       <AnimatePresence>
         {menuOpen && isMobile && (
           <motion.div
@@ -207,23 +182,14 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
           >
             <ul className="p-3 flex flex-col gap-1">
               {navLinks.map((link, i) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                >
+                <motion.li key={link.href} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}>
                   <button
                     onClick={() => handleNavClick(link.href)}
                     className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                      darkMode
-                        ? "text-gray-300 hover:text-white hover:bg-purple-500/10"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-purple-50"
+                      darkMode ? "text-gray-300 hover:text-white hover:bg-purple-500/10" : "text-gray-600 hover:text-gray-900 hover:bg-purple-50"
                     } ${
                       activeLink === link.href
-                        ? darkMode
-                          ? "text-white bg-purple-500/10 border-l-2 border-purple-500"
-                          : "text-purple-700 bg-purple-50 border-l-2 border-purple-500"
+                        ? darkMode ? "text-white bg-purple-500/10 border-l-2 border-purple-500" : "text-purple-700 bg-purple-50 border-l-2 border-purple-500"
                         : ""
                     }`}
                   >
