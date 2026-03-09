@@ -5,7 +5,7 @@ import { SiLeetcode } from "react-icons/si";
 
 import heroImage from "../assets/hero-image.jpeg";
 
-const roles = ["Front End Developer", "C++ Programmer", "DSA Enthusiast", "Creative Coder"];
+const roles = ["Front End Developer", "C++ Programmer", "DSA Enthusiast", "Problem Solver"];
 
 const photoBadges = [
   { emoji: "⚛️", text: "React + Tailwind" },
