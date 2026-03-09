@@ -5,13 +5,22 @@ import { SiLeetcode } from "react-icons/si";
 
 import heroImage from "../assets/hero-image.jpeg";
 
-const roles = ["Front End Developer", "C++ Programmer", "DSA Enthusiast", "Problem Solver"];
+const roles = ["Front End Developer", "C++ Programmer", "DSA Enthusiast", "Creative Coder"];
 
 const photoBadges = [
   { emoji: "⚛️", text: "React + Tailwind" },
   { emoji: "⚡", text: "C++ + DSA" },
   { emoji: "🎨", text: "Frontend Dev" },
 ];
+
+function useRotatingBadge(items, interval = 2200) {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIndex(i => (i + 1) % items.length), interval);
+    return () => clearInterval(t);
+  }, [items.length, interval]);
+  return index;
+}
 
 const socialLinks = [
   { icon: <FiGithub size={20} />,   href: "https://github.com/shashwata-66",                   label: "GitHub"   },
@@ -48,15 +57,6 @@ function useTypewriter(words, speed = 80, pause = 1800) {
   return displayed;
 }
 
-function useRotatingBadge(items, interval = 2200) {
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setIndex(i => (i + 1) % items.length), interval);
-    return () => clearInterval(t);
-  }, [items.length, interval]);
-  return index;
-}
-
 function Particle({ darkMode }) {
   const style = {
     left:              `${Math.random() * 100}%`,
@@ -75,9 +75,9 @@ function Particle({ darkMode }) {
 }
 
 export default function Hero({ darkMode }) {
-  const typed       = useTypewriter(roles);
-  const badgeIndex  = useRotatingBadge(photoBadges);
-  const particles   = Array.from({ length: 30 });
+  const typed     = useTypewriter(roles);
+  const badgeIndex = useRotatingBadge(photoBadges);
+  const particles = Array.from({ length: 30 });
 
   // Three breakpoints: phone < 640, tablet 640–1279, desktop >= 1280
   const [screenType, setScreenType] = useState("desktop");
@@ -257,10 +257,29 @@ export default function Hero({ darkMode }) {
                 <div className={`relative ${photoSize} rounded-full overflow-hidden border-4 ${darkMode ? "border-[#0a0a0f]" : "border-white"}`}>
                   <img src={heroImage} alt="Shashwata Barman" className="w-full h-full object-cover" />
                 </div>
+                {/* Bottom badge */}
                 <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                   className={`absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1.5 rounded-2xl text-xs font-semibold shadow-xl border ${
                     darkMode ? "bg-[#13111f] border-purple-500/20 text-purple-300" : "bg-white border-purple-100 text-purple-700"
                   }`}>✨ Open to opportunities</motion.div>
+                {/* Rotating badge — top-right, same as desktop */}
+                <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className={`absolute -top-3 -right-4 overflow-hidden px-3 py-1.5 rounded-2xl text-xs font-semibold shadow-xl border min-w-[130px] text-center ${
+                    darkMode ? "bg-[#13111f] border-purple-500/20 text-purple-300" : "bg-white border-purple-100 text-purple-700"
+                  }`}>
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={badgeIndex}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.35, ease: "easeOut" }}
+                      className="flex items-center justify-center gap-1.5"
+                    >
+                      {photoBadges[badgeIndex].emoji} {photoBadges[badgeIndex].text}
+                    </motion.span>
+                  </AnimatePresence>
+                </motion.div>
               </div>
             </motion.div>
 
