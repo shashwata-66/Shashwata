@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
 import { SiReact, SiTailwindcss, SiFramer, SiVite, SiJavascript, SiHtml5 } from "react-icons/si";
@@ -149,7 +149,6 @@ function ProjectCard({ project, darkMode, delay }) {
 
       {/* Card content */}
       <div className="flex flex-col flex-1 p-5">
-        {/* Title + link icons row */}
         <div className="flex items-start justify-between gap-2 mb-2">
           <div className="flex items-center gap-2">
             <span className="text-lg">{project.emoji}</span>
@@ -157,58 +156,33 @@ function ProjectCard({ project, darkMode, delay }) {
               {project.name}
             </h3>
           </div>
-
           <div className="flex items-center gap-1 shrink-0">
             {project.github && (
-              <motion.a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
+              <motion.a href={project.github} target="_blank" rel="noopener noreferrer"
                 whileHover={{ scale: 1.15, y: -1 }}
-                className={`p-1.5 rounded-lg transition-colors ${
-                  darkMode ? "text-gray-500 hover:text-purple-400" : "text-gray-400 hover:text-purple-600"
-                }`}
-              >
+                className={`p-1.5 rounded-lg transition-colors ${darkMode ? "text-gray-500 hover:text-purple-400" : "text-gray-400 hover:text-purple-600"}`}>
                 <FiGithub size={14} />
               </motion.a>
             )}
             {project.live && (
-              <motion.a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
+              <motion.a href={project.live} target="_blank" rel="noopener noreferrer"
                 whileHover={{ scale: 1.15, y: -1 }}
-                className={`p-1.5 rounded-lg transition-colors ${
-                  darkMode ? "text-gray-500 hover:text-purple-400" : "text-gray-400 hover:text-purple-600"
-                }`}
-              >
+                className={`p-1.5 rounded-lg transition-colors ${darkMode ? "text-gray-500 hover:text-purple-400" : "text-gray-400 hover:text-purple-600"}`}>
                 <FiExternalLink size={14} />
               </motion.a>
             )}
             {!project.github && !project.live && (
-              <span
-                className={`text-xs px-2 py-0.5 rounded-lg font-semibold border ${
-                  darkMode
-                    ? "text-orange-400 border-orange-500/20 bg-orange-500/10"
-                    : "text-orange-500 border-orange-200 bg-orange-50"
-                }`}
-              >
-                Coming Soon
-              </span>
+              <span className={`text-xs px-2 py-0.5 rounded-lg font-semibold border ${
+                darkMode ? "text-orange-400 border-orange-500/20 bg-orange-500/10" : "text-orange-500 border-orange-200 bg-orange-50"
+              }`}>Coming Soon</span>
             )}
           </div>
         </div>
-
-        {/* Description */}
         <p className={`text-xs leading-relaxed mb-4 flex-1 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
           {project.description}
         </p>
-
-        {/* Tech tags */}
         <div className="flex flex-wrap gap-1.5">
-          {project.tech.map((t) => (
-            <TechTag key={t} name={t} darkMode={darkMode} />
-          ))}
+          {project.tech.map((t) => <TechTag key={t} name={t} darkMode={darkMode} />)}
         </div>
       </div>
     </motion.div>
@@ -218,78 +192,54 @@ function ProjectCard({ project, darkMode, delay }) {
 export default function Projects({ darkMode }) {
   const headingRef = useRef(null);
   const isHeadingInView = useInView(headingRef, { once: true });
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1280);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <section
       id="projects"
       className={`relative py-28 overflow-hidden ${darkMode ? "bg-[#0a0a0f]" : "bg-gray-50"}`}
     >
-      {/* Background blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div
-          className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.04] blur-[120px]"
-          style={{ background: "radial-gradient(circle, #7c3aed, transparent)" }}
-        />
-        <div
-          className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-[0.04] blur-[100px]"
-          style={{ background: "radial-gradient(circle, #a855f7, transparent)" }}
-        />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.04] blur-[120px]"
+          style={{ background: "radial-gradient(circle, #7c3aed, transparent)" }} />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-[0.04] blur-[100px]"
+          style={{ background: "radial-gradient(circle, #a855f7, transparent)" }} />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* Heading */}
         <div ref={headingRef} className="mb-16">
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={isHeadingInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className={`text-sm font-semibold tracking-widest uppercase mb-3 ${
-              darkMode ? "text-purple-400" : "text-purple-600"
-            }`}
-          >
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={isHeadingInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}
+            className={`text-sm font-semibold tracking-widest uppercase mb-3 ${darkMode ? "text-purple-400" : "text-purple-600"}`}>
             — Things I've built
           </motion.p>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={isHeadingInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.1 }}
-            className={`text-4xl md:text-5xl font-black tracking-tight ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
+          <motion.h2 initial={{ opacity: 0, y: 20 }} animate={isHeadingInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.1 }}
+            className={`text-4xl font-black tracking-tight ${darkMode ? "text-white" : "text-gray-900"}`}>
             My{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
-              Projects
-            </span>
+            <span className="bg-gradient-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent">Projects</span>
           </motion.h2>
-
-          <motion.div
-            initial={{ width: 0 }}
-            animate={isHeadingInView ? { width: "60px" } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="h-1 mt-4 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500"
-          />
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={isHeadingInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className={`mt-4 text-sm max-w-xl ${darkMode ? "text-gray-400" : "text-gray-500"}`}
-          >
+          <motion.div initial={{ width: 0 }} animate={isHeadingInView ? { width: "60px" } : {}} transition={{ duration: 0.6, delay: 0.3 }}
+            className="h-1 mt-4 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500" />
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={isHeadingInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 }}
+            className={`mt-4 text-sm max-w-xl ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
             A selection of projects I've built — from web apps to real-world tools.
           </motion.p>
         </div>
 
-        {/* 3 equal cards grid */}
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* 3 cols on desktop, 1 col on mobile/tablet */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isDesktop ? "repeat(3, 1fr)" : "1fr",
+          gap: "1.5rem",
+        }}>
           {projects.map((project, i) => (
-            <ProjectCard
-              key={project.name}
-              project={project}
-              darkMode={darkMode}
-              delay={i * 0.12}
-            />
+            <ProjectCard key={project.name} project={project} darkMode={darkMode} delay={i * 0.12} />
           ))}
         </div>
       </div>

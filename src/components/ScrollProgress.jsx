@@ -21,7 +21,7 @@ export default function ScrollProgress() {
     <AnimatePresence>
       {visible && (
         <>
-          {/* Track — faint background line */}
+          {/* Track */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -41,7 +41,7 @@ export default function ScrollProgress() {
               boxShadow: "0 0 14px rgba(139,92,246,1), 0 0 30px rgba(139,92,246,0.6)",
             }}
           >
-            {/* Shimmer effect on the bar */}
+            {/* Shimmer */}
             <motion.div
               animate={{ x: ["-100%", "200%"] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
@@ -50,10 +50,9 @@ export default function ScrollProgress() {
                 background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
               }}
             />
-
-            {/* Glowing tip at the end */}
+            {/* Glowing tip */}
             <div
-              className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full"
+              className="absolute right-0 top-1/2 w-4 h-4 rounded-full"
               style={{
                 background: "#c084fc",
                 boxShadow: "0 0 12px #c084fc, 0 0 24px #a78bfa, 0 0 40px #7c3aed",
@@ -62,7 +61,7 @@ export default function ScrollProgress() {
             />
           </motion.div>
 
-          {/* Percentage badge — appears at 10%+ */}
+          {/* % badge — always top-right */}
           {progress > 10 && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
