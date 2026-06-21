@@ -4,6 +4,19 @@ import { FiBriefcase, FiCalendar, FiMapPin } from "react-icons/fi";
 
 const experiences = [
   {
+    company: "Digital Heroes",
+    role: "Web Developer",
+    duration: "Mar 2026 – Apr 2026",
+    type: "Internship",
+    location: "Remote",
+    points: [
+      "Developed and customized Shopify stores for client projects.",
+      "Worked on theme customization, page development, and content management.",
+      "Contributed to the development and maintenance of 2+ Shopify stores.",
+    ],
+    accentColor: "#22d3ee",
+  },
+  {
     company: "Centre for Development of Advanced Computing (CDAC)",
     role: "Virtual Intern – Cybersecurity",
     duration: "Jun 2025 – Jul 2025",
