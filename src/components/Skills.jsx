@@ -1,13 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
-  SiCplusplus, SiC, SiJavascript,
+  SiCplusplus, SiC, SiJavascript, SiPython,
   SiHtml5, SiReact, SiTailwindcss, SiBootstrap,
   SiNodedotjs, SiExpress,
   SiMongodb, SiMysql,
   SiGit, SiGithub, SiVercel,
 } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
+import { FaJava } from "react-icons/fa";
 
 const categories = [
   {
@@ -16,6 +17,8 @@ const categories = [
       { name: "C++",        icon: <SiCplusplus />,  color: "#00599C" },
       { name: "C",          icon: <SiC />,           color: "#A8B9CC" },
       { name: "JavaScript", icon: <SiJavascript />,  color: "#F7DF1E" },
+      { name: "Java",       icon: <FaJava />,        color: "#007396" },
+      { name: "Python",     icon: <SiPython />,      color: "#3776AB" },
     ],
   },
   {
