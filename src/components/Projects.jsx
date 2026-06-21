@@ -6,6 +6,7 @@ import { SiReact, SiTailwindcss, SiFramer, SiVite, SiJavascript, SiHtml5 } from 
 import aiAgencyImg from "../assets/agency-ai.png";
 import studyPlannerImg from "../assets/study-planer.png";
 import newsAppImg from "../assets/news-app.png";
+import emiCalculatorImg from "../assets/emi-calculator.png";
 
 const techIcons = {
   React:          { icon: <SiReact />,       color: "#61DAFB" },
@@ -46,11 +47,22 @@ const projects = [
     description:
       "A news application that fetches and displays the latest articles from an external API with category-based browsing and a responsive UI.",
     tech: ["HTML", "CSS", "JavaScript", "News API"],
-    github: null,
+    github: "https://github.com/shashwata-66/news-app",
     live: null,
     image: newsAppImg,
     accentColor: "#fb923c",
     emoji: "📰",
+  },
+  {
+    name: "Ledger EMI Calculator",
+    description:
+      "A React-based EMI and loan calculator that breaks down monthly payments, total interest, and principal — with instant recalculation as you adjust loan amount, interest rate, tenure, and extra payments.",
+    tech: ["React", "Tailwind CSS", "Vite", "Recharts"],
+    github: "https://github.com/shashwata-66/emi-calculator",
+    live: "https://emi-calculator-dusky-xi.vercel.app/",
+    image: emiCalculatorImg,
+    accentColor: "#60a5fa",
+    emoji: "🧮",
   },
 ];
 
