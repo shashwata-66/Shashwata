@@ -4,6 +4,19 @@ import { FiBriefcase, FiCalendar, FiMapPin } from "react-icons/fi";
 
 const experiences = [
   {
+    company: "InAmigos Foundation",
+    role: "Web Developer",
+    duration: "May 2026 – May 2026",
+    type: "Internship",
+    location: "Remote",
+    points: [
+      "Developed web projects using HTML, CSS, and JavaScript.",
+      "Analyzed NGO websites and identified improvements in design and functionality.",
+      "Created website prototypes and feature recommendations tailored to NGO requirements.",
+    ],
+    accentColor: "#34d399",
+  },
+  {
     company: "Digital Heroes",
     role: "Web Developer",
     duration: "Mar 2026 – Apr 2026",
